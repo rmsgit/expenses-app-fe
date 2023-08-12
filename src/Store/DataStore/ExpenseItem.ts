@@ -1,8 +1,9 @@
-import {makeAutoObservable} from "mobx";
+import {makeAutoObservable, toJS} from "mobx";
 import moment from "moment";
 
 export class ExpenseItem {
 
+    public _id?: string
     public title: string = ''
     public description?: string
     public date: Date = new Date();
@@ -37,5 +38,9 @@ export class ExpenseItem {
 
     setAmount(value: number) {
         this.amount = value;
+    }
+
+    toJS() {
+        return toJS(this)
     }
 }

@@ -34,8 +34,8 @@ export const ExpenseModalView = observer(() => {
                         <Button
                             label="Save"
 
-                            onClick={() => {
-                                console.log(expense)
+                            onClick={async () => {
+                                await expenseModalViewStore.saveExpense();
                             }}
                         />
 

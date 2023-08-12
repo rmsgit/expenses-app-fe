@@ -11,7 +11,11 @@ export const Dashboard = observer(() => {
 
     useEffect(() => {
         return () => {
-            dataStore.categoryList.loadAllCategories()
+            Promise.all([
+                dataStore.categoryList.loadAllCategories(),
+                dataStore.expenseList.loadAll()
+            ])
+
         }
     }, [])
     return (

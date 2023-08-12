@@ -43,4 +43,10 @@ export class ExpenseModalViewStore {
         this.selectedCategory = item;
         this.expense.setCategory(this.selectedCategory.name);
     }
+
+    async saveExpense() {
+        await mainStore.dataStore.expenseList.crateNew(this.expense);
+        this.expense = new ExpenseItem();
+        this.close();
+    }
 }

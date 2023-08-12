@@ -3,21 +3,11 @@ import {useStore} from "../../Store";
 import {ExpenseItemView} from "./ExpenseItemView";
 import {DashboardToolbar} from "./DashboardToolbar";
 import {ExpenseModalView} from "./ExpenseModalView";
-import {useEffect} from "react";
 
-export const Dashboard = observer(() => {
+export const DashboardView = observer(() => {
 
-    const {dataStore, viewStore: {dashboard: {expensesList}}} = useStore();
+    const {viewStore: {dashboard: {expensesList}}} = useStore();
 
-    useEffect(() => {
-        return () => {
-            Promise.all([
-                dataStore.categoryList.loadAllCategories(),
-                dataStore.expenseList.loadAll()
-            ])
-
-        }
-    }, [])
     return (
         <>
             <div className="dashboard">

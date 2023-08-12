@@ -18,6 +18,5 @@ export class CategoryList {
             const {data: categories = []} = response;
             this.categories = categories.map((c: object) => new Category(c));
         }
-
     }
 }

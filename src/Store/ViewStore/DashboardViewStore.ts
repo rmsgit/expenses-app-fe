@@ -29,12 +29,15 @@ export class DashboardViewStore {
     }
 
 
-    selectCategory(item: CategoryDropDownItem) {
+    async selectCategory(item?: CategoryDropDownItem) {
         if (!item) {
+            this.selectedCategory = undefined;
+            await mainStore.dataStore.expenseList.loadExpenses()
             return
         }
-
         this.selectedCategory = item;
+        const {name: category} = item
+        await mainStore.dataStore.expenseList.loadExpenses({category})
     }
 
 

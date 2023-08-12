@@ -15,7 +15,15 @@ export class ExpenseModalViewStore {
         makeAutoObservable(this)
     }
 
-    open() {
+    open(expense?: ExpenseItem) {
+        if (expense) {
+            this.expense = expense
+            this.selectedCategory = {name: expense.category, code: expense.category}
+        } else {
+            this.expense = new ExpenseItem();
+        }
+
+
         this.isOpen = true;
     }
 
@@ -29,6 +37,10 @@ export class ExpenseModalViewStore {
             code: name,
             name
         }))
+    }
+
+    get isUpdateExpense() {
+        return !!this.expense._id;
     }
 
     get selectedCategoryForDropDown() {
@@ -45,7 +57,12 @@ export class ExpenseModalViewStore {
     }
 
     async saveExpense() {
-        await mainStore.dataStore.expenseList.crateNew(this.expense);
+        if (this.isUpdateExpense) {
+            await this.expense.update();
+        } else {
+            await mainStore.dataStore.expenseList.crateNew(this.expense);
+        }
+
         this.expense = new ExpenseItem();
         this.close();
     }

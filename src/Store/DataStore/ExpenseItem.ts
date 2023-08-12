@@ -1,5 +1,7 @@
 import {makeAutoObservable, toJS} from "mobx";
 import moment from "moment";
+import {updateExpense} from "../../Services/expense-service";
+import {inlinePromise} from '@ruwan.m.s/promise-utils'
 
 export class ExpenseItem {
 
@@ -11,12 +13,22 @@ export class ExpenseItem {
     public amount: number = 0;
 
     constructor(data?: object) {
-        data && Object.assign(this, data);
+        data && this.pathData(data);
         makeAutoObservable(this);
+    }
+
+    pathData(data: object) {
+        Object.assign(this, data);
+        const {date} = data as any;
+        this.date = new Date(date);
     }
 
     get formattedDate() {
         return moment(this.date).format('DD/MM/YYYY')
+    }
+
+    async update() {
+        await inlinePromise<{ data: ExpenseItem }>(updateExpense(this));
     }
 
 

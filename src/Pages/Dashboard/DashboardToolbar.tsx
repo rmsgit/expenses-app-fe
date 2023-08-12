@@ -16,10 +16,14 @@ export const DashboardToolbar = observer(() => {
                                   value={dashboard.selectedCategoryForDropDown}
                                   onChange={e => {
                                       dashboard.selectCategory(e.value)
-
                                   }}
                                   optionLabel="name"
                                   placeholder="Select a Category" className="w-full md:w-14rem"/>
+
+                        {
+                            dashboard.selectedCategory &&
+                            <Button onClick={() => dashboard.selectCategory()} label="Clear" size="small"/>
+                        }
 
                     </>
                 }
